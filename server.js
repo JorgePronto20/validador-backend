@@ -18,6 +18,7 @@ const headers = {
   'User-Agent': 'ValidadorApp'
 };
 
+// Obter todos os códigos válidos
 app.get('/codigos-validos', async (req, res) => {
   try {
     const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
@@ -29,6 +30,7 @@ app.get('/codigos-validos', async (req, res) => {
   }
 });
 
+// Validar um código e atualizar o JSON no GitHub
 app.post('/validar-codigo', async (req, res) => {
   const { codigo, dispositivo } = req.body;
   if (!codigo || !dispositivo) {
@@ -51,6 +53,7 @@ app.post('/validar-codigo', async (req, res) => {
       return res.status(409).json({ error: 'Código já foi usado.' });
     }
 
+    // Atualizar o código
     json[index].estado = 'usado';
     json[index].data_utilizacao = new Date().toISOString();
     json[index].dispositivo = dispositivo;
@@ -66,6 +69,7 @@ app.post('/validar-codigo', async (req, res) => {
 
     res.json({ success: true, codigo, dispositivo });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Erro ao validar o código.' });
   }
 });
