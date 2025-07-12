@@ -1,3 +1,4 @@
+
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
@@ -8,7 +9,7 @@ app.use(bodyParser.json());
 
 const OWNER = 'JorgePronto20';
 const REPO = 'validador-campanhas';
-const FILE_PATH = 'campanhas.json'; // novo ficheiro com múltiplas campanhas
+const FILE_PATH = 'campanhas.json';
 const BRANCH = 'main';
 const GITHUB_API = 'https://api.github.com';
 
@@ -18,7 +19,7 @@ const headers = {
   'User-Agent': 'ValidadorApp'
 };
 
-// Obter todas as campanhas
+// Obter todas as campanhas e códigos
 app.get('/campanhas', async (req, res) => {
   try {
     const url = `${GITHUB_API}/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`;
